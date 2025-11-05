@@ -1,0 +1,40 @@
+# Init argocd-install.yaml
+
+# ======================================================
+# ArgoCD Installation Manifest (Plus - Parte 3)
+# ======================================================
+# Fuente oficial: https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+# Este manifiesto instala todos los componentes de ArgoCD en el namespace "argocd"
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: argocd
+---
+# Instala todos los recursos oficiales de ArgoCD
+# Puedes aplicar directamente este archivo o el manifiesto oficial desde GitHub:
+# kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-placeholder
+  namespace: argocd
+  labels:
+    app: argocd
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: argocd
+  template:
+    metadata:
+      labels:
+        app: argocd
+    spec:
+      containers:
+      - name: placeholder
+        image: busybox
+        command: ["sh", "-c", "echo 'ArgoCD manifest placeholder - apply official manifest in real deployment'"]
+
+# End argocd-install.yaml

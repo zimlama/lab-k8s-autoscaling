@@ -1,0 +1,19 @@
+# Init nginx-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  labels:
+    app: nginx
+spec:
+  type: NodePort        # Permite acceder desde fuera del cluster (Killercoda o localhost)
+  selector:
+    app: nginx          # Se conecta con los pods que tengan esta label
+  ports:
+    - protocol: TCP
+      port: 80          # Puerto interno del Service
+      targetPort: 80    # Puerto donde escucha el contenedor Nginx
+      nodePort: 30080   # Puerto del nodo expuesto externamente
+
+# End nginx-service.yaml

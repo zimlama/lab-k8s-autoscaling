@@ -1,0 +1,25 @@
+# Init hpa.yaml
+
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx-hpa
+  labels:
+    app: nginx
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1           # Tipo de recurso a escalar
+    kind: Deployment              # Escala el deployment nginx-deploy
+    name: nginx-deploy            # Nombre del deployment objetivo
+  minReplicas: 1                  # Número mínimo de pods
+  maxReplicas: 5                  # Número máximo de pods
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu                   # Escala según el uso de CPU
+      target:
+        type: Utilization
+        averageUtilization: 50    # Si la CPU promedio supera el 50%, crea más pods
+
+
+# End hpa.yaml
